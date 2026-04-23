@@ -3,57 +3,66 @@
 <head>
     <meta charset="UTF-8">
     <title>Requirements & Effort Tracker</title>
+    <link rel="stylesheet" href="StyleSheet.css">
 </head>
 <body>
 
     <h1>Requirements & Effort Tracker</h1>
 
-    <!-- Add Requirement -->
-    <h2>Add Requirement</h2>
-    <input type="text" id="reqName" placeholder="Requirement Name">
-    <select id="reqType">
-        <option value="Functional">Functional</option>
-        <option value="Non-Functional">Non-Functional</option>
-    </select>
-    <button onclick="addRequirement()">Add Requirement</button>
+    <div class="section">
+        <!-- Add Requirement -->
+        <h2>Add Requirement</h2>
+            <input type="text" id="reqName" placeholder="Requirement Name">
+        <select id="reqType">
+            <option value="Functional">Functional</option>
+            <option value="Non-Functional">Non-Functional</option>
+        </select>
+        <button onclick="addRequirement()">Add Requirement</button>
+    </div>
 
-    <!-- Requirements Table -->
-    <h2>Requirements List</h2>
-    <table border="1">
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>Type</th>
-            </tr>
-        </thead>
-        <tbody id="reqTable"></tbody>
-    </table>
+    <div class="section">
+        <!-- Requirements Table -->
+        <h2>Requirements List</h2>
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Type</th>
+                </tr>
+            </thead>
+            <tbody id="reqTable"></tbody>
+        </table>
+    </div>
+    
+    <div class="section">
+        <!-- Log Effort -->
+        <h2>Log Effort</h2>
+        <select id="effortReq"></select>
+        <input type="number" id="hours" placeholder="Hours" step="0.1">
 
-    <!-- Log Effort -->
-    <h2>Log Effort</h2>
-    <select id="effortReq"></select>
-    <input type="number" id="hours" placeholder="Hours" step="0.1">
+        <select id="category">
+            <option value="analysis">Analysis</option>
+            <option value="design">Design</option>
+            <option value="coding">Coding</option>
+            <option value="testing">Testing</option>
+            <option value="management">Management</option>
+        </select>
 
-    <select id="category">
-        <option value="analysis">Analysis</option>
-        <option value="design">Design</option>
-        <option value="coding">Coding</option>
-        <option value="testing">Testing</option>
-        <option value="management">Management</option>
-    </select>
-
-    <button onclick="logEffort()">Log Effort</button>
-
-    <!-- Report -->
-    <h2>Effort Report</h2>
-    <p>Analysis: <span id="analysisTotal">0</span></p>
-    <p>Design: <span id="designTotal">0</span></p>
-    <p>Coding: <span id="codingTotal">0</span></p>
-    <p>Testing: <span id="testingTotal">0</span></p>
-    <p>Management: <span id="managementTotal">0</span></p>
+        <button onclick="logEffort()">Log Effort</button>
+    </div>
+    
+    <div class="section">
+        <!-- Report -->
+        <h2>Effort Report</h2>
+        <p>Analysis: <span id="analysisTotal">0</span></p>
+        <p>Design: <span id="designTotal">0</span></p>
+        <p>Coding: <span id="codingTotal">0</span></p>
+        <p>Testing: <span id="testingTotal">0</span></p>
+        <p>Management: <span id="managementTotal">0</span></p>
+    </div>
 
     <!-- JS File -->
-    <script src="script.js"></script>
+    <script src="JavaScript.js"></script>
 
 </body>
 </html>
