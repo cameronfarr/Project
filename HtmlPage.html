@@ -2,67 +2,358 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Requirements & Effort Tracker</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Software Project Management Tracker</title>
     <link rel="stylesheet" href="StyleSheet.css">
 </head>
 <body>
+    <header class="topbar">
+        <div>
+            <p class="eyebrow">Group 3 Final Product</p>
+            <h1>Software Project Management Tracker</h1>
+        </div>
+        <button class="secondary-button" id="clearDataButton" type="button">Reset Data</button>
+    </header>
 
-    <h1>Requirements & Effort Tracker</h1>
+    <main class="app-shell">
+        <div id="message" class="message" aria-live="polite"></div>
 
-    <div class="section">
-        <!-- Add Requirement -->
-        <h2>Add Requirement</h2>
-            <input type="text" id="reqName" placeholder="Requirement Name">
-        <select id="reqType">
-            <option value="Functional">Functional</option>
-            <option value="Non-Functional">Non-Functional</option>
-        </select>
-        <button onclick="addRequirement()">Add Requirement</button>
-    </div>
+        <section class="metric-grid" aria-label="Project summary">
+            <article class="metric-card">
+                <span class="metric-label">Requirements</span>
+                <strong id="metricRequirements">0</strong>
+            </article>
+            <article class="metric-card">
+                <span class="metric-label">Logged Hours</span>
+                <strong id="metricHours">0</strong>
+            </article>
+            <article class="metric-card">
+                <span class="metric-label">Team Members</span>
+                <strong id="metricMembers">0</strong>
+            </article>
+            <article class="metric-card">
+                <span class="metric-label">Open Risks</span>
+                <strong id="metricRisks">0</strong>
+            </article>
+        </section>
 
-    <div class="section">
-        <!-- Requirements Table -->
-        <h2>Requirements List</h2>
-        <table border="1">
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Type</th>
-                </tr>
-            </thead>
-            <tbody id="reqTable"></tbody>
-        </table>
-    </div>
-    
-    <div class="section">
-        <!-- Log Effort -->
-        <h2>Log Effort</h2>
-        <select id="effortReq"></select>
-        <input type="number" id="hours" placeholder="Hours" step="0.1">
+        <section class="section">
+            <div class="section-heading">
+                <div>
+                    <p class="eyebrow">General</p>
+                    <h2>Project Setup</h2>
+                </div>
+            </div>
 
-        <select id="category">
-            <option value="analysis">Analysis</option>
-            <option value="design">Design</option>
-            <option value="coding">Coding</option>
-            <option value="testing">Testing</option>
-            <option value="management">Management</option>
-        </select>
+            <form class="form-grid" id="projectForm">
+                <label class="wide-field">
+                    Project Description
+                    <textarea id="projectDescription" rows="4" placeholder="High level software project description"></textarea>
+                </label>
+                <label>
+                    Owner or Project Manager
+                    <input type="text" id="projectManager" placeholder="Project manager name">
+                </label>
+                <div class="form-actions">
+                    <button type="submit">Save Project Info</button>
+                </div>
+            </form>
 
-        <button onclick="logEffort()">Log Effort</button>
-    </div>
-    
-    <div class="section">
-        <!-- Report -->
-        <h2>Effort Report</h2>
-        <p>Analysis: <span id="analysisTotal">0</span></p>
-        <p>Design: <span id="designTotal">0</span></p>
-        <p>Coding: <span id="codingTotal">0</span></p>
-        <p>Testing: <span id="testingTotal">0</span></p>
-        <p>Management: <span id="managementTotal">0</span></p>
-    </div>
+            <div class="two-column">
+                <div class="panel">
+                    <h3>Team Members</h3>
+                    <form class="inline-form" id="teamForm">
+                        <label>
+                            Member Name
+                            <input type="text" id="teamMemberName" placeholder="Name">
+                        </label>
+                        <button type="submit">Add Member</button>
+                    </form>
+                    <div class="list" id="teamList"></div>
+                </div>
 
-    <!-- JS File -->
+                <div class="panel">
+                    <h3>Risks</h3>
+                    <form class="inline-form" id="riskForm">
+                        <label>
+                            Risk
+                            <input type="text" id="riskTitle" placeholder="Risk description">
+                        </label>
+                        <label>
+                            Status
+                            <select id="riskStatus">
+                                <option value="Open">Open</option>
+                                <option value="Monitoring">Monitoring</option>
+                                <option value="Mitigated">Mitigated</option>
+                                <option value="Closed">Closed</option>
+                            </select>
+                        </label>
+                        <button type="submit">Add Risk</button>
+                    </form>
+                    <div class="table-wrap compact-table">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Risk</th>
+                                    <th>Status</th>
+                                    <th class="action-column">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="riskTable"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="section-heading">
+                <div>
+                    <p class="eyebrow">Requirements</p>
+                    <h2>Requirement Management</h2>
+                </div>
+            </div>
+
+            <form class="form-grid" id="requirementForm">
+                <label class="wide-field">
+                    Requirement Name
+                    <input type="text" id="requirementName" placeholder="Requirement title">
+                </label>
+                <label>
+                    Type
+                    <select id="requirementType">
+                        <option value="Functional">Functional</option>
+                        <option value="Non-Functional">Non-Functional</option>
+                    </select>
+                </label>
+                <label>
+                    Status
+                    <select id="requirementStatus">
+                        <option value="Not Started">Not Started</option>
+                        <option value="In Progress">In Progress</option>
+                        <option value="Complete">Complete</option>
+                    </select>
+                </label>
+                <div class="form-actions">
+                    <button type="submit">Add Requirement</button>
+                </div>
+            </form>
+
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Type</th>
+                            <th>Status</th>
+                            <th class="number-column">Hours</th>
+                            <th class="action-column">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="requirementsTable"></tbody>
+                </table>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="section-heading">
+                <div>
+                    <p class="eyebrow">Effort</p>
+                    <h2>Project Effort Tracking</h2>
+                </div>
+            </div>
+
+            <form class="form-grid" id="effortForm">
+                <label>
+                    Requirement
+                    <select id="effortRequirement"></select>
+                </label>
+                <label>
+                    Team Member
+                    <select id="effortMember"></select>
+                </label>
+                <label>
+                    Category
+                    <select id="effortCategory">
+                        <option value="analysis">Requirements Analysis</option>
+                        <option value="design">Designing</option>
+                        <option value="coding">Coding</option>
+                        <option value="testing">Testing</option>
+                        <option value="management">Project Management</option>
+                    </select>
+                </label>
+                <label>
+                    Period
+                    <select id="periodType">
+                        <option value="daily">Daily</option>
+                        <option value="weekly">Weekly</option>
+                    </select>
+                </label>
+                <label>
+                    <span id="periodLabel">Day</span>
+                    <input type="date" id="periodValue">
+                </label>
+                <label>
+                    Hours
+                    <input type="number" id="effortHours" min="0.1" step="0.1" placeholder="0.0">
+                </label>
+                <div class="form-actions">
+                    <button type="submit">Log Effort</button>
+                </div>
+            </form>
+
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Period</th>
+                            <th>Requirement</th>
+                            <th>Team Member</th>
+                            <th>Category</th>
+                            <th class="number-column">Hours</th>
+                            <th class="action-column">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="effortTable"></tbody>
+                </table>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="section-heading">
+                <div>
+                    <p class="eyebrow">Reports</p>
+                    <h2>Daily and Weekly Reporting</h2>
+                </div>
+            </div>
+
+            <div class="report-grid">
+                <div class="panel">
+                    <h3>Total Hours by Category</h3>
+                    <div class="table-wrap compact-table">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Category</th>
+                                    <th class="number-column">Hours</th>
+                                </tr>
+                            </thead>
+                            <tbody id="categoryReport"></tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="panel">
+                    <h3>Total Hours per Requirement</h3>
+                    <div class="table-wrap compact-table">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Requirement</th>
+                                    <th class="number-column">Hours</th>
+                                </tr>
+                            </thead>
+                            <tbody id="requirementReport"></tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="panel">
+                    <h3>Daily Reports</h3>
+                    <div class="table-wrap compact-table">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Day</th>
+                                    <th class="number-column">Entries</th>
+                                    <th class="number-column">Hours</th>
+                                </tr>
+                            </thead>
+                            <tbody id="dailyReport"></tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="panel">
+                    <h3>Weekly Reports</h3>
+                    <div class="table-wrap compact-table">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Week</th>
+                                    <th class="number-column">Entries</th>
+                                    <th class="number-column">Hours</th>
+                                </tr>
+                            </thead>
+                            <tbody id="weeklyReport"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="section-heading">
+                <div>
+                    <p class="eyebrow">Analytics</p>
+                    <h2>Project Insights</h2>
+                </div>
+            </div>
+
+            <div class="analytics-grid">
+                <article class="insight-card">
+                    <span class="metric-label">Most Time-Consuming Requirement</span>
+                    <strong id="topRequirement">None</strong>
+                </article>
+                <article class="insight-card">
+                    <span class="metric-label">Most Time-Consuming Category</span>
+                    <strong id="topCategory">None</strong>
+                </article>
+                <article class="insight-card">
+                    <span class="metric-label">Highest Effort Member</span>
+                    <strong id="topMember">None</strong>
+                </article>
+                <article class="insight-card">
+                    <span class="metric-label">Requirement Completion</span>
+                    <strong id="completionRate">0%</strong>
+                </article>
+            </div>
+
+            <div class="report-grid">
+                <div class="panel">
+                    <h3>Effort by Team Member</h3>
+                    <div class="table-wrap compact-table">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Team Member</th>
+                                    <th class="number-column">Hours</th>
+                                </tr>
+                            </thead>
+                            <tbody id="memberAnalytics"></tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="panel">
+                    <h3>Requirement Progress</h3>
+                    <div class="table-wrap compact-table">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Requirement</th>
+                                    <th>Status</th>
+                                    <th class="number-column">Hours</th>
+                                </tr>
+                            </thead>
+                            <tbody id="progressAnalytics"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
     <script src="JavaScript.js"></script>
-
 </body>
 </html>
