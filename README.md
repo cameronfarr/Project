@@ -7,8 +7,8 @@ Group 3 final product for SWE 4663 Software Project Management.
 - Elijah Giusto, group leader
 - Abass Diaby
 - Cameron Farr
-- Garyah Fumbah
 - Ella Goode
+- Garyah Fumbah
 
 ## How to Run
 
