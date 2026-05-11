@@ -18,14 +18,17 @@ projects. For each of those projects, your system receives a list of functional 
 requirements (as input, in addition to owner's name, etc.) and allows the user to view the total
 expended hours by requirements analysis, designing, coding, testing, and project management.
 Your system should include the following set of functions.
+
 A. A General section that allows the input of the following information:
 1. A high level description of the software project
 2. The owner or the project manager name
 3. A list of project team members (which may vary as the project progresses)
 4. A list of risks and risk status
+
 B. Project Requirements
 1. Have a feature that allows the user to enter a list of functional and non-functional
 requirements for the software project
+
 C. Project Effort Monitoring and Tracking
 1. Have a feature that allows the user to enter (at a daily or weekly basis) the effort in
 number of person hours expended on Requirements Analysis, Designing, Coding,
